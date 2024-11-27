@@ -39,23 +39,52 @@ function createUserTable() {
     });
 }
 //insert a entry
-function insertaUser() {
+//Not correct for pg library security issues.
+// async function insertaUser() {
+//     try {
+//         await client.connect(); // Ensure client connection is established
+//         const insertQuery = `
+//       INSERT INTO users (username, email, password)
+//       VALUES ('username2', 'user3@example.com', 'user_password');
+//     `;
+//         const res = await client.query(insertQuery);
+//         console.log('Insertion success:', res); // Output insertion result
+//     } catch (err) {
+//         console.error('Error during the insertion:', err);
+//     } finally {
+//         await client.end(); // Close the client connection
+//     }
+// }
+//? Right Way
+// async function insertaUser() {
+//     try {
+//         await client.connect(); // Ensure client connection is established
+//         const insertQuery = `
+//       INSERT INTO users (username, email, password)
+//       VALUES ($1,$2,$3);
+//     `;
+//         const values = ['hari', 'hari@gmail.com', 'harik@132']
+//         const res = await client.query(insertQuery, values);
+//         console.log('Insertion success:', res); // Output insertion result
+//     } catch (err) {
+//         console.error('Error during the insertion:', err);
+//     } finally {
+//         await client.end(); // Close the client connection
+//     }
+// }
+// insertaUser()
+function getSingleUser(email) {
     return __awaiter(this, void 0, void 0, function* () {
+        yield client.connect();
         try {
-            yield client.connect(); // Ensure client connection is established
-            const insertQuery = `
-      INSERT INTO users (username, email, password)
-      VALUES ('username2', 'user3@example.com', 'user_password');
-    `;
-            const res = yield client.query(insertQuery);
-            console.log('Insertion success:', res); // Output insertion result
+            const sqlQuery = `SELECT * FROM users WHERE email = $1`;
+            const values = [email];
+            const res = yield client.query(sqlQuery, values);
+            console.log('success', res.rows);
         }
-        catch (err) {
-            console.error('Error during the insertion:', err);
-        }
-        finally {
-            yield client.end(); // Close the client connection
+        catch (e) {
+            console.log(e);
         }
     });
 }
-insertaUser();
+getSingleUser("hari@gmail.com");

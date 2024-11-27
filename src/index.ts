@@ -33,20 +33,53 @@ async function createUserTable() {
 
 //insert a entry
 //Not correct for pg library security issues.
-async function insertaUser() {
+// async function insertaUser() {
+//     try {
+//         await client.connect(); // Ensure client connection is established
+//         const insertQuery = `
+//       INSERT INTO users (username, email, password)
+//       VALUES ('username2', 'user3@example.com', 'user_password');
+//     `;
+//         const res = await client.query(insertQuery);
+//         console.log('Insertion success:', res); // Output insertion result
+//     } catch (err) {
+//         console.error('Error during the insertion:', err);
+//     } finally {
+//         await client.end(); // Close the client connection
+//     }
+// }
+
+//? Right Way
+
+// async function insertaUser() {
+//     try {
+//         await client.connect(); // Ensure client connection is established
+//         const insertQuery = `
+//       INSERT INTO users (username, email, password)
+//       VALUES ($1,$2,$3);
+//     `;
+//         const values = ['hari', 'hari@gmail.com', 'harik@132']
+//         const res = await client.query(insertQuery, values);
+//         console.log('Insertion success:', res); // Output insertion result
+//     } catch (err) {
+//         console.error('Error during the insertion:', err);
+//     } finally {
+//         await client.end(); // Close the client connection
+//     }
+// }
+
+// insertaUser()
+
+async function getSingleUser(email: string) {
+    await client.connect();
+
     try {
-        await client.connect(); // Ensure client connection is established
-        const insertQuery = `
-      INSERT INTO users (username, email, password)
-      VALUES ('username2', 'user3@example.com', 'user_password');
-    `;
-        const res = await client.query(insertQuery);
-        console.log('Insertion success:', res); // Output insertion result
-    } catch (err) {
-        console.error('Error during the insertion:', err);
-    } finally {
-        await client.end(); // Close the client connection
+        const sqlQuery = `SELECT * FROM users WHERE email = $1`
+        const values = [email];
+        const res = await client.query(sqlQuery, values)
+        console.log('success', res.rows)
+    } catch (e) {
+        console.log(e)
     }
 }
-
-insertaUser()
+getSingleUser("hari@gmail.com")
