@@ -70,16 +70,30 @@ async function createUserTable() {
 
 // insertaUser()
 
-async function getSingleUser(email: string) {
-    await client.connect();
 
-    try {
-        const sqlQuery = `SELECT * FROM users WHERE email = $1`
-        const values = [email];
-        const res = await client.query(sqlQuery, values)
-        console.log('success', res.rows)
-    } catch (e) {
-        console.log(e)
-    }
-}
-getSingleUser("hari@gmail.com")
+//GET DATA
+// async function getSingleUser(email: string) {
+//     await client.connect();
+
+//     try {
+//         const sqlQuery = `SELECT * FROM users WHERE email = $1`
+//         const values = [email];
+//         const res = await client.query(sqlQuery, values)
+//         console.log('success', res.rows) //-GET ALL THE MATCHED DATA
+//         // console.log('success', res.rows[0]) //-GET SINGLE MATCHED
+//     } catch (e) {
+//         console.log(e)
+//     }
+// }
+// getSingleUser("hari@gmail.com");
+
+
+//-UPDATE
+
+
+//join
+
+// SELECT *
+// FROM user
+// JOIN address on user.id = address.user_id
+// WHERE user.id = $1
