@@ -1,0 +1,16 @@
+{
+  "name": "posgreshsql",
+  "version": "1.0.0",
+  "description": "Main Difference is btw the sql and no sql \r no sql is schemaless additing a new fields and update new new fileds is possible.\r in sql if we need to perform addition of a new column we need to do migrations.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/pg": "^8.11.10",
+    "pg": "^8.13.1"
+  }
+}
