@@ -9,3 +9,5 @@ In nosql we can have a obj in a particular column it is easy also we can search 
 In sql those obj is good go with another table for making relatioship and search.
 
 <!-- postgresql://test_owner:C5gUS1upMweB@ep-blue-flower-a5ty6a24.us-east-2.aws.neon.tech/test?sslmode=require -->
+
+Need to build the complete curd with postgresQl...
