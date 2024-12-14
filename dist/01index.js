@@ -10,9 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const pg_1 = require("pg");
-// const clinet = new Client({
+// const client = new Client({
 //     host: 'ep-blue-flower-a5ty6a24.us-east-2.aws.neon.tech',
-//     port: 4400,
+//     // port: 5334,
 //     database: 'test',
 //     user: 'test_owner',
 //     password: 'C5gUS1upMweB'
@@ -38,6 +38,7 @@ function createUserTable() {
         console.log(user);
     });
 }
+// createUserTable()
 //insert a entry
 //Not correct for pg library security issues.
 // async function insertaUser() {
@@ -56,22 +57,26 @@ function createUserTable() {
 //     }
 // }
 //? Right Way
-// async function insertaUser() {
-//     try {
-//         await client.connect(); // Ensure client connection is established
-//         const insertQuery = `
-//       INSERT INTO users (username, email, password)
-//       VALUES ($1,$2,$3);
-//     `;
-//         const values = ['hari', 'hari@gmail.com', 'harik@132']
-//         const res = await client.query(insertQuery, values);
-//         console.log('Insertion success:', res); // Output insertion result
-//     } catch (err) {
-//         console.error('Error during the insertion:', err);
-//     } finally {
-//         await client.end(); // Close the client connection
-//     }
-// }
+function insertaUser() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield client.connect(); // Ensure client connection is established
+            const insertQuery = `
+      INSERT INTO users (username, email, password)
+      VALUES ($1,$2,$3);
+    `;
+            const values = ['hari', 'hari@gmail.com', 'harik@132'];
+            const res = yield client.query(insertQuery, values);
+            console.log('Insertion success:', res); // Output insertion result
+        }
+        catch (err) {
+            console.error('Error during the insertion:', err);
+        }
+        finally {
+            yield client.end(); // Close the client connection
+        }
+    });
+}
 // insertaUser()
 //GET DATA
 // async function getSingleUser(email: string) {
@@ -88,6 +93,29 @@ function createUserTable() {
 // }
 // getSingleUser("hari@gmail.com");
 //-UPDATE
+function getSingleUpdateUser(email, name) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield client.connect();
+        try {
+            const sqlQuery = `
+            UPDATE users
+            SET username = $1
+            WHERE email = $2
+            RETURNING *;`; // Use RETURNING to get the updated row(s)
+            const values = [name, email]; // Provide both name and email
+            const res = yield client.query(sqlQuery, values);
+            console.log('success', res.rows); // Get all matched data
+            // console.log('success', res.rows[0]); // Uncomment to get single matched row
+        }
+        catch (e) {
+            console.log(e);
+        }
+        finally {
+            yield client.end(); // Ensure the client disconnects after operation
+        }
+    });
+}
+getSingleUpdateUser("hari@gmail.com", "H");
 //join
 // SELECT *
 // FROM user

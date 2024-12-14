@@ -45,7 +45,7 @@ function getUser(email) {
         const res = yield prisma.user.findFirst({
             where: {
                 email: email
-            }
+            },
         });
         console.log(res);
     });

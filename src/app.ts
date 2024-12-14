@@ -34,7 +34,7 @@ async function getUser(email: string) {
     const res = await prisma.user.findFirst({
         where: {
             email: email
-        }
+        },
 
     })
     console.log(res)
