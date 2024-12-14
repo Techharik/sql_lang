@@ -11,3 +11,21 @@ In sql those obj is good go with another table for making relatioship and search
 <!-- postgresql://test_owner:C5gUS1upMweB@ep-blue-flower-a5ty6a24.us-east-2.aws.neon.tech/test?sslmode=require -->
 
 Need to build the complete curd with postgresQl...
+
+
+
+### migration
+```
+  npx prisma migrate dev --name nameforthemigrate
+```
+###  prisma clinet  - auto generated clients
+
+
+```
+  npx prisma generate
+```
+
+```
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+```
